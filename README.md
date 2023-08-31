@@ -20,7 +20,7 @@ Trozo aims to work well without configuration, but it does offer a couple of opt
 ### Defaults
 
 ```lua
-require('creta').setup({
+require('trozo').setup({
   auto_open_browser = true,  -- Automatically open the URL in the default web browser (default: true)
   copy_to_clipboard = false, -- Copy the URL to the clipboard (default: false)
 })
@@ -46,7 +46,7 @@ return {
     {
         "postfen/trozo.nvim",
         config = true,
-        cmd = {"TrozoUploadSelection", "CretaUploadFile"}
+        cmd = {"TrozoUploadSelection", "TrozoUploadFile"}
     },
 }
 ```
@@ -56,8 +56,8 @@ return {
 ```
 | Command          | Action                                           |
 |------------------|--------------------------------------------------|
-| :TrozoUpload     | Uploads the selected text to \`paste.rs\`.       |
-| :TrozoUploadFile | Uploads the entire file to \`paste.rs\`.         |
+| TrozoUpload     | Uploads the selected text to \`paste.rs\`.       |
+| TrozoUploadFile | Uploads the entire file to \`paste.rs\`.         |
 ```
 
 ### Using Which-Key.nvim
@@ -70,11 +70,11 @@ return {
 
     local xmappings = {
         s = {
-            "<cmd>'<,'>TrozoUploadSelection<CR>",
+            ":'<,'>TrozoUploadSelection<CR>",
             "Upload V-Selection To paste.rs",
         },
         S = {
-            "<cmd>TrozoUploadFile<CR>",
+            ":TrozoUploadFile<CR>",
             "Upload File To paste.rs",
         },
     }
@@ -87,8 +87,6 @@ return {
         nowait = true, -- use `nowait` when creating keymaps
     }
 
-    which_key.setup(setup)
-    which_key.register(mappings, opts)
     which_key.register(xmappings, xopts)
 
 ```
