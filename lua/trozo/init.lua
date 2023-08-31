@@ -1,3 +1,4 @@
+vim.fn["health#trozo#check"] = require("trozo.health").checkhealth
 --- trozo Module
 --
 -- This module provides functionality to capture a selection in Neovim,
