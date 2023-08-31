@@ -102,7 +102,7 @@ local function upload_selection(lines, filetype)
     local job_id = vim.fn.jobstart({ "curl", "-i", "--data-binary", "@-", "https://paste.rs/" }, job_opts)
 
     if job_id > 0 then
-        local text_to_paste = table.concat(lines, "\n") .. "\n"
+        local text_to_paste = table.concat(lines, "\n")
         vim.fn.chansend(job_id, text_to_paste)
         vim.fn.chanclose(job_id, "stdin")
     else
