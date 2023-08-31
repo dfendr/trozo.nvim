@@ -22,7 +22,7 @@ Latin for "chalk," symbolizing writing and sharing.
 
 ```lua
 use {
-  'postfen/creta',
+  'postfen/creta.nvim',
   config = function()
     require('creta').setup()
   end

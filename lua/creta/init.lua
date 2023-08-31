@@ -18,7 +18,7 @@ local opts = {
 -- @param data table: The stdout data from the job.
 local function on_stdout(filetype, err, data)
     if err then
-        vim.notify("Error:", err)
+        vim.notify("Failed to upload to paste.rs. Error: " .. err, vim.log.levels.ERROR)
     end
 
     if data then
