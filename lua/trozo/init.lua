@@ -1,19 +1,20 @@
-vim.fn["health#trozo#check"] = require("trozo.health").checkhealth
 --- trozo Module
---
 -- This module provides functionality to capture a selection in Neovim,
 -- upload it to a paste.rs service, and open the resulting URL in a web browser.
 
 local M = {}
 local log = require("trozo.log")
+
 -- defalt options
 local opts = {
     browser = true,
     clipboard = false,
 }
 
+-- Utility Functions
+-- -----------------
+
 --- Handles the stdout of the paste.rs upload job.
---
 -- @param filetype string: The filetype or extension of the file being uploaded.
 -- @param fd number: file descriptor of the stdout channel.
 -- @param data table: The stdout data from the job.
@@ -54,7 +55,6 @@ local function on_stdout(filetype, fd, data)
 end
 
 --- Handles the exit event of the paste.rs upload job.
---
 -- @param code number: The exit code of the job.
 local function on_exit(_, code)
     if code == 0 then
@@ -64,29 +64,7 @@ local function on_exit(_, code)
     end
 end
 
---- Deletes a paste from paste.rs given its ID.
---
--- @param id string: The ID of the paste to delete.
-function M.delete_paste(id)
-    local opts = {
-        on_exit = vim.schedule_wrap(function(_, code)
-            if code == 0 then
-                log.info("Successfully deleted paste with ID: " .. id)
-            else
-                log.error("Failed to delete paste with ID: " .. id .. ". Exit code: " .. code)
-            end
-        end),
-    }
-
-    local job_id = vim.fn.jobstart({ "curl", "-X", "DELETE", "https://paste.rs/" .. id }, opts)
-
-    if job_id <= 0 then
-        log.error("Failed to start job for paste deletion.")
-    end
-end
-
 --- Uploads the selected text to paste.rs
---
 -- @param lines table: The lines of text to upload.
 -- @param filetype string: The filetype or extension of the file being uploaded.
 local function upload_selection(lines, filetype)
@@ -109,8 +87,11 @@ local function upload_selection(lines, filetype)
         log.error("Failed to start job for paste.rs upload.")
     end
 end
+
+-- Public API
+-- ----------
+
 --- Sets up the trozo module.
---
 -- @param opts table: Configuration options.
 function M.setup(user_opts)
     opts = vim.tbl_extend("force", opts, user_opts or {})
@@ -121,8 +102,28 @@ function M.setup(user_opts)
     )
     vim.api.nvim_create_user_command("TrozoUploadFile", 'lua require("trozo").capture_file()', { range = true })
 end
+
+--- Deletes a paste from paste.rs given its ID.
+-- @param id string: The ID of the paste to delete.
+function M.delete_paste(id)
+    local opts = {
+        on_exit = vim.schedule_wrap(function(_, code)
+            if code == 0 then
+                log.info("Successfully deleted paste with ID: " .. id)
+            else
+                log.error("Failed to delete paste with ID: " .. id .. ". Exit code: " .. code)
+            end
+        end),
+    }
+
+    local job_id = vim.fn.jobstart({ "curl", "-X", "DELETE", "https://paste.rs/" .. id }, opts)
+
+    if job_id <= 0 then
+        log.error("Failed to start job for paste deletion.")
+    end
+end
+
 --- Captures the current visual selection and uploads it to paste.rs.
---
 -- @return table: A table containing the lines and filetype of the selection.
 function M.capture_selection()
     local buf = vim.api.nvim_get_current_buf()
@@ -149,7 +150,6 @@ function M.capture_selection()
 end
 
 --- Captures the entire file and uploads it to paste.rs.
---
 -- @return table: A table containing the lines and filetype of the file.
 function M.capture_file()
     local buf = vim.api.nvim_get_current_buf()
@@ -167,5 +167,8 @@ function M.capture_file()
 
     return { lines, filetype }
 end
+
+-- Register healthcheck
+vim.fn["health#trozo#check"] = require("trozo.health").checkhealth
 
 return M

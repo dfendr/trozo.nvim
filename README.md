@@ -53,12 +53,10 @@ return {
 
 ## Usage
 
-```
 | Command          | Action                                           |
 |------------------|--------------------------------------------------|
 | TrozoUpload     | Uploads the selected text to paste.rs.       |
 | TrozoUploadFile | Uploads the entire file to paste.rs.         |
-```
 
 ### Using Which-Key.nvim
 
