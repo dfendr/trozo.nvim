@@ -4,8 +4,8 @@
 
 ## Features
 
-- Upload selected text to \`paste.rs\` directly from Neovim.
-- Upload the entire file to \`paste.rs\`.
+- Upload selected text to `paste.rs` directly from Neovim.
+- Upload the entire file to `paste.rs`.
 - Automatically open the resulting URL in your default web browser.
 - Option to copy the URL to the clipboard.
 
