@@ -120,7 +120,6 @@ function M.setup(user_opts)
         { range = true }
     )
     vim.api.nvim_create_user_command("TrozoUploadFile", 'lua require("trozo").capture_file()', { range = true })
-    vim.api.nvim_create_user_command("TrozoDelete", 'lua require("trozo").delete_paste("<args>")', {})
 end
 --- Captures the current visual selection and uploads it to paste.rs.
 --
