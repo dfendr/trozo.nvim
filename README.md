@@ -21,8 +21,8 @@ Trozo aims to work well without configuration, but it does offer a couple of opt
 
 ```lua
 require('trozo').setup({
-  auto_open_browser = true,  -- Automatically open the URL in the default web browser (default: true)
-  copy_to_clipboard = false, -- Copy the URL to the clipboard (default: false)
+  browser = true,  -- Automatically open the URL in the default web browser (default: true)
+  clipboard = false, -- Copy the URL to the clipboard (default: false)
 })
 ```
 
