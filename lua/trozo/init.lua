@@ -168,7 +168,4 @@ function M.capture_file()
     return { lines, filetype }
 end
 
--- Register healthcheck
-vim.fn["health#trozo#check"] = require("trozo.health").checkhealth
-
 return M
