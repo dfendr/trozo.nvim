@@ -1,9 +1,9 @@
 local M = {}
 
-local health_start = vim.fn["health#report_start"]
-local health_ok = vim.fn["health#report_ok"]
-local health_warn = vim.fn["health#report_warn"]
-local health_error = vim.fn["health#report_error"]
+local health_start = vim.health.start
+local health_ok = vim.health.ok
+local health_warn = vim.health.warn
+local health_error = vim.health.error
 
 local function binary_installed(name)
     if vim.api.nvim_call_function("has", { "win32" }) == 1 then
