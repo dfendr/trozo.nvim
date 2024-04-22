@@ -32,7 +32,7 @@ require('trozo').setup({
 
 ```lua
 use {
-  'postfen/trozo.nvim',
+  'dfendr/trozo.nvim',
   config = function()
     require('trozo').setup()
   end
@@ -44,7 +44,7 @@ use {
 ```lua
 return {
     {
-        "postfen/trozo.nvim",
+        "dfendr/trozo.nvim",
         config = true,
         cmd = {"TrozoUploadSelection", "TrozoUploadFile"}
     },
