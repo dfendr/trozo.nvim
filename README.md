@@ -21,8 +21,8 @@ Trozo aims to work well without configuration, but it does offer a couple of opt
 
 ```lua
 require('trozo').setup({
-  browser = true,  -- Automatically open the URL in the default web browser (default: true)
-  clipboard = false, -- Copy the URL to the clipboard (default: false)
+  browser = true,  -- Automatically open the URL in the default web browser
+  clipboard = false, -- Copy the URL to the clipboard
 })
 ```
 
@@ -80,9 +80,9 @@ return {
         mode = "x", -- VISUAL mode
         prefix = "<leader>",
         buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-        silent = true, -- use `silent` when creating keymaps
-        noremap = true, -- use `noremap` when creating keymaps
-        nowait = true, -- use `nowait` when creating keymaps
+        silent = true,
+        noremap = true,
+        nowait = true,
     }
 
     which_key.register(xmappings, xopts)
